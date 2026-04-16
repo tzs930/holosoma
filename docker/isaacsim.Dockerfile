@@ -23,8 +23,10 @@ RUN mkdir -p /var/lib/apt/lists/partial && \
     sudo \
     && rm -rf /var/lib/apt/lists/*
 
-# Install Miniconda
-RUN curl https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -o /miniconda.sh && \
+# Install Miniconda (auto-detect architecture)
+RUN ARCH=$(uname -m) && \
+    if [ "$ARCH" = "aarch64" ]; then ARCH="aarch64"; else ARCH="x86_64"; fi && \
+    curl -fsSL https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${ARCH}.sh -o /miniconda.sh && \
     bash /miniconda.sh -b -u -p $CONDA_ROOT && \
     rm /miniconda.sh
 
