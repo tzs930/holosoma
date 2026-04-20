@@ -3,7 +3,7 @@
 # Log files
 *.log
 * ONNX files
-*.onnx
+#*.onnx
 
 # IDE files
 .idea/
